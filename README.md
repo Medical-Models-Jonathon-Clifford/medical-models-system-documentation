@@ -46,10 +46,22 @@ At a high-level the architecture includes:
 ## Platform
 ### Architecture
 
+- A self-hosted server is running Ubuntu.
+- Kubernetes is installed using MicroK8s.
+- Route53 routes traffic from public domain names to the Kubernetes ingress.
+- The Nginx Kubernetes ingress routes traffic to each service.
+- Spring Boot, Next.js, MySQL and MinIO deployments all run on Kubernetes.
+
 ![Draw.io diagram of the platform architecture of the Medical Models application.](./mm-platform-architecture-1.png)
 
 ## Build and Deploy
 ### Pipeline
+
+1. A developer pushes their code to Gitea.
+2. Gitea calls a webhook on Jenkins.
+3. Jenkins starts a build on the latest code.
+4. If the build passes, Jenkins pushes the code to Docker Hub.
+5. If the push succeeds, Jenkins deploys the new build to the Medical Models environment.
 
 ![Draw.io diagram of the build architecture of the Medical Models application.](./mm-build-architecture-1.png)
 
