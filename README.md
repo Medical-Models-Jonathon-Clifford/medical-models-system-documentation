@@ -20,7 +20,7 @@ The user experience takes inspiration from applications like Google Docs, Micros
 
 ## Page Structure
 
-![Draw.io diagram of the page structure of the Medical Models application.](./mm-page-structure-1.png)
+![Draw.io diagram of the page structure.](./mm-page-structure-1.png)
 
 ## Roles
 
@@ -31,7 +31,7 @@ The user experience takes inspiration from applications like Google Docs, Micros
 | User    | View, edit and comment on documents within their company.                                                          |
 
 
-## Code
+## Application
 ### High-level Architecture
 
 At a high-level the architecture includes:
@@ -41,7 +41,26 @@ At a high-level the architecture includes:
 4. MySQL Database
 5. MinIO Object store
 
-![Draw.io diagram of the high-level architecture of the Medical Models application.](./mm-high-level-architecture-1.png)
+![Draw.io diagram of the high-level architecture .](./mm-high-level-architecture-1.png)
+
+### Data Model
+
+The following is an entity-relationship (ER) diagram of the main entities. 
+
+Below the ER diagram is a key for the symbols.
+
+```mermaid
+erDiagram
+    user }o--o{ company : "belongs to"
+    user ||--o{ document : "creates"
+    user ||--o{ comment : "creates"
+    document }o--|| document : "child of"
+    document }o--o{ company : "associated with"
+    document ||--o{ comment : "has"
+    comment }o--|| comment : "replies to"
+```
+
+![Mermaid.js entity relationship diagram of the data model.](./entity-relationship-diagram-key-1.jpg)
 
 ## Platform
 ### Architecture
@@ -52,7 +71,7 @@ At a high-level the architecture includes:
 - The Nginx Kubernetes ingress routes traffic to each service.
 - Spring Boot, Next.js, MySQL and MinIO deployments all run on Kubernetes.
 
-![Draw.io diagram of the platform architecture of the Medical Models application.](./mm-platform-architecture-1.png)
+![Draw.io diagram of the platform architecture.](./mm-platform-architecture-1.png)
 
 ## Build and Deploy
 ### Pipeline
@@ -63,7 +82,7 @@ At a high-level the architecture includes:
 4. If the build passes, Jenkins pushes the code to Docker Hub.
 5. If the push succeeds, Jenkins deploys the new build to the Medical Models environment.
 
-![Draw.io diagram of the build architecture of the Medical Models application.](./mm-build-architecture-1.png)
+![Draw.io diagram of the build architecture.](./mm-build-architecture-1.png)
 
 ## Tooling
 
